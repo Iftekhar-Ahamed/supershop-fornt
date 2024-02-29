@@ -1,1 +1,18 @@
-<p>home works!</p>
+<mat-drawer-container class="home-container" autosize>
+    <mat-drawer #drawer class="home-sidenav" mode="side">
+        <mat-nav-list>
+            <ng-container *ngFor="let menuItem of menuItems">
+                <a mat-list-item routerLink="{{ menuItem.menuUrl }}">{{ menuItem.menuName }}</a>
+            </ng-container>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <div class="home-sidenav-content">
+        <div class="home-header-content">
+            <button type="button" mat-button (click)="drawer.toggle()">
+                Menu
+            </button>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
