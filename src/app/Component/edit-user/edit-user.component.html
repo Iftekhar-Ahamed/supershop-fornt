@@ -1,0 +1,56 @@
+<div class="config">
+    <div class="filter-boxes-container">
+        <div class="sort-box">
+            <div class="form-group">
+                <!-- <label for="taskdescription">Is Complete</label>
+                <select id="status" [(ngModel)]="sortLanding.status" placeholder="Priority">
+                    <option [ngValue]="null">ALL</option>
+                    <option [ngValue]="true">YES</option>
+                    <option [ngValue]="false">NO</option>
+                </select> -->
+            </div>
+        </div>
+        <div class="search-box">
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <input type="text" id="task" [(ngModel)]="datafilter.searchTerm" placeholder="Search by UserID Or Name"
+                    class="text-input">
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="getAllUser();">Search</button>
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="ResetSearchTerm();">All</button>
+            </div>
+
+        </div>
+    </div>
+
+    <table class="todo-table">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>User Type</th>
+                <th>User Full Name</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userlist; let i = index">
+                <td>{{ user.id }}</td>
+                <td>{{ user.userTypeName }}</td>
+                <td>{{ user.userFullName}}</td>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <button class="edit-button" (click)="editUser(i)">Edit</button>
+                    <button class="delete-button" (click)="deleteUser(i)">Delete</button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

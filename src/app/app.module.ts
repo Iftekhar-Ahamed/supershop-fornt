@@ -10,19 +10,25 @@ import { LogInComponent } from './Component/log-in/log-in.component';
 import { PopupComponent } from './Component/popup/popup.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { CreateUserComponent } from './Component/create-user/create-user.component';
+import { EditUserComponent } from './Component/edit-user/edit-user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     PopupComponent,
-    CreateUserComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     LogInComponent,
-    HomeComponent
+    HomeComponent,
+    CreateUserComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    EditUserComponent
   ],
   providers: [
     provideClientHydration(),

@@ -1,0 +1,78 @@
+.todo-table {
+    width: 100%;
+    border: 5px solid #05692f;
+    /* background-color: #a8a6a2; */
+    border-collapse: collapse;
+    margin-top: 20px;
+    padding-left: 2%;
+}
+
+.todo-table th,
+.todo-table td {
+    border: 5px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.delete-button {
+    background-color: #d88383;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.edit-button {
+    background-color: #607fa0;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+
+}
+
+.filter-boxes-container {
+    display: flex;
+    margin-bottom: 20px;
+    width: 205%;
+}
+
+.search-box {
+    margin-top: 20px;
+    border: 3px solid #8086dd;
+    padding: 10px;
+    width: 48%;
+    background-color: #c6e3e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-input {
+    width: 200px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.common-button {
+    background-color: #5c8d6c;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.config {
+    display: flex;
+    flex-direction: column;
+}

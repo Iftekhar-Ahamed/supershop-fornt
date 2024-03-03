@@ -22,13 +22,7 @@ export class APIService {
   }
   post(taskPayload: any, url: string): Observable<any> {
     const apiUrl = this.baseUrl + url;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    console.log(taskPayload, apiUrl);
-    return this.http.post<any>(apiUrl, taskPayload, httpOptions);
+    return this.http.post<any>(apiUrl, taskPayload, this.RequestOptions());
   }
   private RequestOptions() {
     const headers = new HttpHeaders({

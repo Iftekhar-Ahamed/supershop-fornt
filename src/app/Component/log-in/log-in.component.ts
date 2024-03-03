@@ -40,20 +40,20 @@ export class LogInComponent {
           this.data.userInfo.userAccessToken = tokenArray[0];
           this.data.userInfo.userRefreshToken = tokenArray[1];
           this.data.setData();
+          this.openPopup(res.value.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
         } else {
-          this.openPopup(res.value.message.message);
+          this.openPopup(res.value.message, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
         }
       },
       (error) => {
 
-        this.openPopup(error);
+        this.openPopup(error, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
       }
     );
   }
-
-  openPopup(message: string): void {
+  openPopup(message: string, action: string, imgsource: string): void {
     const dialogRef = this.dialog.open(PopupComponent, {
-      data: { message },
+      data: { message, action, imgsource },
     });
 
     dialogRef.afterClosed().subscribe(() => {

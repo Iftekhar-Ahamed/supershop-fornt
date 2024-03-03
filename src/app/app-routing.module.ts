@@ -8,9 +8,9 @@ const routes: Routes = [
   { path: '', component: LogInComponent },
   { path: 'login', component: LogInComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'home', loadChildren: () => import('../app/Component/create-user/create-user.component').then(m => m.CreateUserComponent) },
-  { path: 'home/EditUser', component: HomeComponent },
-  { path: 'home/CreateUser', component: CreateUserComponent },
+  { path: 'home/CreateUser', loadChildren: () => import('../app/Component/create-user/create-user.component').then(m => m.CreateUserComponent) },
+  { path: 'home/EditUser', component: CreateUserComponent },
+  //{ path: 'home/CreateUser', component: CreateUserComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
