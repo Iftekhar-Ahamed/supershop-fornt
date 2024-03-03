@@ -41,14 +41,34 @@
         <tbody>
             <tr *ngFor="let user of userlist; let i = index">
                 <td>{{ user.id }}</td>
-                <td>{{ user.userTypeName }}</td>
-                <td>{{ user.userFullName}}</td>
-                <td>{{ user.userName }}</td>
-                <td>{{ user.password }}</td>
-                <td>
-                    <button class="edit-button" (click)="editUser(i)">Edit</button>
-                    <button class="delete-button" (click)="deleteUser(i)">Delete</button>
+                <td *ngIf="editIndex !== i">{{ user.userTypeName }}</td>
+                <td *ngIf="editIndex === i">
+                    <select [(ngModel)]="userlist[i].userTypeId">
+                        <option *ngFor="let userType of userType" [value]="userType.value"
+                            [selected]="userType.value === userlist[i].userTypeId">
+                            {{ userType.name }}
+                        </option>
+                    </select>
+                </td>
 
+                <td *ngIf="editIndex !== i">{{ user.userFullName }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="userlist[i].userFullName" /></td>
+
+                <td *ngIf="editIndex !== i">{{ user.userName }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="userlist[i].userName" /></td>
+
+                <td *ngIf="editIndex !== i">{{ user.password }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="userlist[i].password" /></td>
+
+                <td>
+                    <button *ngIf="isEditAndDeleteVisiable === true" class="edit-button"
+                        (click)="editUser(i)">Edit</button>
+                    <button *ngIf="isEditAndDeleteVisiable === true" class="delete-button"
+                        (click)="deleteUser(i)">Delete</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false and editIndex === i" class="save-button"
+                        class="save-button" (click)="saveUser(i)">Save</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false and editIndex === i" class="cancel-button"
+                        class="cancel-button" (click)="cancelEdit()">Cancel</button>
                 </td>
             </tr>
         </tbody>

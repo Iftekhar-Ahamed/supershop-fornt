@@ -17,6 +17,10 @@ interface filterData {
   searchTerm?: string | null,
   isActive?: boolean | null,
 }
+interface CommonDDL {
+  value: number,
+  name: string
+}
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
@@ -24,8 +28,14 @@ interface filterData {
   standalone: true,
   imports: [CommonModule, FormsModule]
 })
+
 export class EditUserComponent {
-  userlist: User[] = [];
+  userlist: Array<User> = [];
+  editIndex: number = -1;
+  userType: CommonDDL[] = [];
+
+  isEditAndDeleteVisiable: boolean = true;
+
   datafilter: filterData = {
     searchTerm: null,
     isActive: null
@@ -33,6 +43,21 @@ export class EditUserComponent {
   constructor(private apiService: APIService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.getAllUser();
+    this.getUserType();
+  }
+  getUserType() {
+    const urlddl = "/User/GetUserType";
+    this.apiService.get(urlddl).subscribe(
+      res => {
+        this.userType = [];
+        for (const item of res.key) {
+          this.userType.push(item);
+        }
+      },
+      (error) => {
+        console.error('Error fetching todos:', error);
+      }
+    );
   }
 
 
@@ -52,11 +77,38 @@ export class EditUserComponent {
       }
     );
   }
-
-
-  editUser(index: number) {
-
+  editUser(index: number): void {
+    this.editIndex = index;
+    this.isEditAndDeleteVisiable = false;
   }
+
+  saveUser(index: number): void {
+    const selectedUserType = this.userType.find(x => x.value === this.userlist[index].userTypeId);
+    console.log(this.userType, this.userlist[index].userTypeId);
+    if (selectedUserType) {
+      console.log(selectedUserType)
+      this.userlist[index].userTypeName = selectedUserType.name;
+    }
+
+    console.log(this.userlist[index]);
+    // this.apiService.post(this.userlist[index], "/User/UpdateUserById").subscribe(
+    //   res => {
+    //     console.log(res);
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching todos:', error);
+    //   }
+    // );
+    this.editIndex = -1;
+    this.isEditAndDeleteVisiable = true;
+  }
+
+  cancelEdit(): void {
+    // Exit edit mode without saving changes
+    this.editIndex = -1;
+    this.isEditAndDeleteVisiable = true;
+  }
+
   deleteUser(index: number) {
 
   }

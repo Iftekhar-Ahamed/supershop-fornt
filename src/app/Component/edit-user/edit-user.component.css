@@ -37,6 +37,29 @@
 
 }
 
+.save-button {
+    background-color: #00a832;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.cancel-button {
+    background-color: #d80606;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+
+}
+
 .filter-boxes-container {
     display: flex;
     margin-bottom: 20px;
