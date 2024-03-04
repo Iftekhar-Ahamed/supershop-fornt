@@ -3,10 +3,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { APIService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-interface User {
+import { promises } from 'node:dns';
+import { Observable, catchError, map, switchMap } from 'rxjs';
+interface UserPayLoad {
   userTypeName: string;
   id: number;
   userTypeId: number;
+  userName: string;
+  userFullName: string;
+  connectionId: string | null;
+  isActive: boolean;
+  password: string;
+}
+interface User {
+  id: number;
+  userType: CommonDDL;
   userName: string;
   userFullName: string;
   connectionId: string | null;
@@ -30,9 +41,20 @@ interface CommonDDL {
 })
 
 export class EditUserComponent {
-  userlist: Array<User> = [];
+  userView: Array<User> = [];
   editIndex: number = -1;
   userType: CommonDDL[] = [];
+
+  payload: UserPayLoad = {
+    userFullName: "",
+    id: 0,
+    userName: "",
+    password: "",
+    connectionId: "",
+    userTypeId: 0,
+    userTypeName: "",
+    isActive: false,
+  };
 
   isEditAndDeleteVisiable: boolean = true;
 
@@ -44,6 +66,7 @@ export class EditUserComponent {
   ngOnInit(): void {
     this.getAllUser();
     this.getUserType();
+
   }
   getUserType() {
     const urlddl = "/User/GetUserType";
@@ -67,44 +90,97 @@ export class EditUserComponent {
 
     this.apiService.get(url).subscribe(
       res => {
-        this.userlist = [];
+        this.userView = [];
         for (const item of res.key.data) {
-          this.userlist.push(item);
+          var ddl: CommonDDL = {
+            value: item.userTypeId,
+            name: item.userTypeName
+          };
+          var newUser: User = {
+            id: item.id,
+            userName: item.userName,
+            userType: ddl,
+            userFullName: item.userFullName,
+            connectionId: item.connectionId,
+            isActive: item.isActive,
+            password: item.password
+          };
+          this.userView.push(newUser);
         }
+
+
       },
       (error) => {
         console.error('Error fetching todos:', error);
       }
     );
   }
+  getUserById(id: number): Observable<User> {
+    const url = `/User/GetUserInformationById?Id=${id}`;
+    return this.apiService.get(url).pipe(
+      map(res => {
+
+        const ddl: CommonDDL = {
+          value: res.key.userTypeId,
+          name: res.key.userTypeName
+        };
+        const newUser: User = {
+          id: res.key.id,
+          userName: res.key.userName,
+          userType: ddl,
+          userFullName: res.key.userFullName,
+          connectionId: res.key.connectionId,
+          isActive: res.key.isActive,
+          password: res.key.password
+        };
+        console.log(newUser);
+        return newUser;
+      }),
+      catchError(error => {
+        console.error('Error fetching user by Id:', error);
+        throw error;
+      })
+    );
+  }
+
+
+
   editUser(index: number): void {
+    this.initialUserInput(index);
     this.editIndex = index;
     this.isEditAndDeleteVisiable = false;
   }
-
+  initialUserInput(index: number) {
+    this.payload = {
+      userFullName: this.userView[index].userFullName,
+      id: this.userView[index].id,
+      userName: this.userView[index].userName,
+      password: this.userView[index].password,
+      connectionId: this.userView[index].connectionId,
+      userTypeId: this.userView[index].userType.value,
+      userTypeName: this.userView[index].userType.name,
+      isActive: this.userView[index].isActive,
+    };
+  }
   saveUser(index: number): void {
-    const selectedUserType = this.userType.find(x => x.value === this.userlist[index].userTypeId);
-    console.log(this.userType, this.userlist[index].userTypeId);
-    if (selectedUserType) {
-      console.log(selectedUserType)
-      this.userlist[index].userTypeName = selectedUserType.name;
-    }
+    this.apiService.post(this.payload, "/User/UpdateUserById").pipe(
+      switchMap(() => this.getUserById(this.userView[index].id))
+    ).subscribe(
+      updatedUser => {
+        console.log('POST API completed successfully:', updatedUser);
+        this.userView[index] = updatedUser;
+      },
+      error => {
+        console.error('Error in POST API:', error);
+      }
+    );
 
-    console.log(this.userlist[index]);
-    // this.apiService.post(this.userlist[index], "/User/UpdateUserById").subscribe(
-    //   res => {
-    //     console.log(res);
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching todos:', error);
-    //   }
-    // );
     this.editIndex = -1;
     this.isEditAndDeleteVisiable = true;
   }
 
   cancelEdit(): void {
-    // Exit edit mode without saving changes
+
     this.editIndex = -1;
     this.isEditAndDeleteVisiable = true;
   }
