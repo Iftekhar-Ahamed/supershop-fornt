@@ -13,15 +13,19 @@ import { CreateUserComponent } from './Component/create-user/create-user.compone
 import { EditUserComponent } from './Component/edit-user/edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './Component/confirmation/confirmation.component';
+import { NotificationReceivedComponent } from './Component/notification-received/notification-received.component';
+import { RealtimeClientService } from './realtime-client.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     PopupComponent,
     ConfirmationComponent,
+    NotificationReceivedComponent,
 
   ],
   imports: [
+    RouterModule.forRoot([]),
     BrowserModule,
     AppRoutingModule,
     RouterModule,
@@ -36,6 +40,7 @@ import { ConfirmationComponent } from './Component/confirmation/confirmation.com
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
+    RealtimeClientService
   ],
   bootstrap: [AppComponent]
 })
