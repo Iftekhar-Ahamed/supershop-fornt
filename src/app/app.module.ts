@@ -12,11 +12,13 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { CreateUserComponent } from './Component/create-user/create-user.component';
 import { EditUserComponent } from './Component/edit-user/edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationComponent } from './Component/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PopupComponent,
+    ConfirmationComponent,
 
   ],
   imports: [

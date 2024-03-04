@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { promises } from 'node:dns';
 import { Observable, catchError, map, switchMap } from 'rxjs';
+import { PopupComponent } from '../popup/popup.component';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 interface UserPayLoad {
   userTypeName: string;
   id: number;
@@ -167,8 +169,8 @@ export class EditUserComponent {
       switchMap(() => this.getUserById(this.userView[index].id))
     ).subscribe(
       updatedUser => {
-        console.log('POST API completed successfully:', updatedUser);
         this.userView[index] = updatedUser;
+        this.openPopup("Update SucessFull", "OK", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
       },
       error => {
         console.error('Error in POST API:', error);
@@ -186,11 +188,50 @@ export class EditUserComponent {
   }
 
   deleteUser(index: number) {
-
+    const UserId = this.userView[index].id;
+    this.apiService.post(UserId, "/User/DeleteUserById").subscribe(
+      res => {
+        console.log(res);
+      },
+      (error) => {
+        console.error('Error fetching todos:', error);
+      }
+    );
   }
   ResetSearchTerm() {
     this.datafilter.searchTerm = null;
     this.datafilter.isActive = null;
     this.getAllUser();
+  }
+  openPopup(message: string, action: string, imgsource: string): void {
+    const dialogRef = this.dialog.open(PopupComponent, {
+      data: { message, action, imgsource },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Popup closed');
+    });
+  }
+  openPopupConfrimationForDelete(index: number): void {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: { "Do you want to delete": String, "https://cdn-icons-png.flaticon.com/512/574/574433.png": String },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.deleteUser(index);
+      }
+    });
+  }
+  openPopupConfrimationForUpdate(index: number): void {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: { "Do you want to delete": String, "https://cdn-icons-png.flaticon.com/512/574/574433.png": String },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.saveUser(index);
+      }
+    });
   }
 }

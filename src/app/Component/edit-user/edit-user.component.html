@@ -66,9 +66,10 @@
 
                 <td>
                     <button *ngIf=" editIndex !== i" class="edit-button" (click)="editUser(i)">Edit</button>
-                    <button *ngIf=" editIndex !== i" class="delete-button" (click)="deleteUser(i)">Delete</button>
+                    <button *ngIf=" editIndex !== i" class="delete-button"
+                        (click)="openPopupConfrimationForDelete(i)">Delete</button>
                     <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="save-button"
-                        class="save-button" (click)="saveUser(i)">Save</button>
+                        class="save-button" (click)="openPopupConfrimationForUpdate(i)">Save</button>
                     <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="cancel-button"
                         class="cancel-button" (click)="cancelEdit()">Cancel</button>
                 </td>
