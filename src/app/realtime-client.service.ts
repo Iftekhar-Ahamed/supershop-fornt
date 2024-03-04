@@ -7,10 +7,13 @@ export class RealtimeClientService {
   private hubConnection: signalR.HubConnection;
   notificationReceived: any;
   constructor() {
-    console.log("In RealtimeClientService")
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https:/localhost:44330/notificationHub')
+      .withUrl('http://localhost:44330/notificationHub', {
+        withCredentials: true
+      })
       .build();
+    console.log("In RealtimeClientService")
+
     this.hubConnection
       .start()
       .then(() => console.log('Connected to SignalR hub'))
@@ -19,4 +22,5 @@ export class RealtimeClientService {
       this.notificationReceived.addNotification(notification);
     });
   }
+
 }

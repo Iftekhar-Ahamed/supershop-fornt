@@ -14,7 +14,6 @@ import { EditUserComponent } from './Component/edit-user/edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './Component/confirmation/confirmation.component';
 import { NotificationReceivedComponent } from './Component/notification-received/notification-received.component';
-import { RealtimeClientService } from './realtime-client.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { RealtimeClientService } from './realtime-client.service';
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    RealtimeClientService
   ],
   bootstrap: [AppComponent]
 })

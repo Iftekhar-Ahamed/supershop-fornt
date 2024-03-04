@@ -9,6 +9,7 @@ import { UserDataService } from '../../user-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { RealtimeClientService } from '../../realtime-client.service';
 interface menuItem {
   id: number,
   menuName: string,
@@ -28,7 +29,7 @@ export class HomeComponent {
   showFiller = false;
   component: string = "";
 
-  constructor(private apiService: APIService, private dataservice: UserDataService, private dialog: MatDialog, private router: Router) { }
+  constructor(private notify: RealtimeClientService, private apiService: APIService, private dataservice: UserDataService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.refreshPage();
