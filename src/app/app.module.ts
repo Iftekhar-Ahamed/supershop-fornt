@@ -24,7 +24,7 @@ import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
-    CreateUserMenuPermissionComponent,
+
 
   ],
   imports: [
@@ -39,7 +39,8 @@ import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-
     FormsModule,
     EditUserComponent,
     MenuConfigurationComponent,
-    CreateMenuComponent
+    CreateMenuComponent,
+    CreateUserMenuPermissionComponent,
 
   ],
   providers: [

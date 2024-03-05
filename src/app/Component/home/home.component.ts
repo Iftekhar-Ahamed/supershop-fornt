@@ -12,6 +12,7 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { RealtimeClientService } from '../../realtime-client.service';
 import { CreateMenuComponent } from '../create-menu/create-menu.component';
 import { MenuConfigurationComponent } from '../menu-configuration/menu-configuration.component';
+import { CreateUserMenuPermissionComponent } from '../create-user-menu-permission/create-user-menu-permission.component';
 interface menuItem {
   id: number,
   menuName: string,
@@ -23,7 +24,17 @@ interface menuItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatSidenavModule, MatButtonModule, MatListModule, RouterLink, CreateUserComponent, EditUserComponent, CreateMenuComponent, MenuConfigurationComponent]
+  imports: [CommonModule,
+    RouterModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatListModule,
+    RouterLink,
+    CreateUserComponent,
+    EditUserComponent,
+    CreateMenuComponent,
+    MenuConfigurationComponent,
+    CreateUserMenuPermissionComponent]
 })
 
 export class HomeComponent {
