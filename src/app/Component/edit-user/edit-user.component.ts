@@ -191,7 +191,8 @@ export class EditUserComponent {
     const UserId = this.userView[index].id;
     this.apiService.post(UserId, "/User/DeleteUserById").subscribe(
       res => {
-        console.log(res);
+        this.userView.splice(index, 1);
+        this.openPopup(res.message, "OK", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
       },
       (error) => {
         console.error('Error fetching todos:', error);

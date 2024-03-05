@@ -3,7 +3,7 @@
         <mat-nav-list>
             <ng-container *ngFor="let menuItem of menuItems">
                 <!-- <a mat-list-item routerLink="{{ menuItem.menuUrl }}">{{ menuItem.menuName }}</a> -->
-                <a mat-list-item (click)="openComponent(menuItem.menuName)">{{ menuItem.menuName }}</a>
+                <a mat-list-item (click)="openComponent(menuItem.menuUrl)">{{ menuItem.menuName }}</a>
             </ng-container>
         </mat-nav-list>
     </mat-drawer>
@@ -15,8 +15,10 @@
             </button>
         </div>
         <div class="component-content">
-            <app-create-user *ngIf="component==='Create User'"></app-create-user>
-            <app-edit-user *ngIf="component==='User Configuration'"></app-edit-user>
+            <app-create-user *ngIf="component==='CreateUser'"></app-create-user>
+            <app-edit-user *ngIf="component==='EditUser'"></app-edit-user>
+            <app-create-menu *ngIf="component==='CreateMenu'"></app-create-menu>
+            <app-menu-configuration *ngIf="component==='MenuConfiguration'"></app-menu-configuration>
         </div>
     </div>
 

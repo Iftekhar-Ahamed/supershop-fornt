@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { RealtimeClientService } from '../../realtime-client.service';
+import { CreateMenuComponent } from '../create-menu/create-menu.component';
+import { MenuConfigurationComponent } from '../menu-configuration/menu-configuration.component';
 interface menuItem {
   id: number,
   menuName: string,
@@ -21,7 +23,7 @@ interface menuItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatSidenavModule, MatButtonModule, MatListModule, RouterLink, CreateUserComponent, EditUserComponent]
+  imports: [CommonModule, RouterModule, MatSidenavModule, MatButtonModule, MatListModule, RouterLink, CreateUserComponent, EditUserComponent, CreateMenuComponent, MenuConfigurationComponent]
 })
 
 export class HomeComponent {

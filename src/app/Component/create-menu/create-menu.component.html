@@ -1,0 +1,11 @@
+<form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+    <div class="user-form">
+        <label for="userName">Menu Name</label>
+        <input type="text" id="menuName" formControlName="menuName" placeholder="Enter Menuname.." required>
+
+        <label for="menuUrl">Menu Url</label>
+        <input type="text" id="menuUrl" formControlName="menuUrl" placeholder="Enter Menu Url.." required>
+
+        <input type="submit" value="Submit">
+    </div>
+</form>

@@ -14,6 +14,9 @@ import { EditUserComponent } from './Component/edit-user/edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './Component/confirmation/confirmation.component';
 import { NotificationReceivedComponent } from './Component/notification-received/notification-received.component';
+import { MenuConfigurationComponent } from './Component/menu-configuration/menu-configuration.component';
+import { CreateMenuComponent } from './Component/create-menu/create-menu.component';
+import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-permission/create-user-menu-permission.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { NotificationReceivedComponent } from './Component/notification-received
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
+    CreateUserMenuPermissionComponent,
 
   ],
   imports: [
@@ -33,7 +37,10 @@ import { NotificationReceivedComponent } from './Component/notification-received
     CreateUserComponent,
     ReactiveFormsModule,
     FormsModule,
-    EditUserComponent
+    EditUserComponent,
+    MenuConfigurationComponent,
+    CreateMenuComponent
+
   ],
   providers: [
     provideClientHydration(),
