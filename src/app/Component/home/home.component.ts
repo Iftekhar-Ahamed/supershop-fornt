@@ -13,6 +13,7 @@ import { RealtimeClientService } from '../../realtime-client.service';
 import { CreateMenuComponent } from '../create-menu/create-menu.component';
 import { MenuConfigurationComponent } from '../menu-configuration/menu-configuration.component';
 import { CreateUserMenuPermissionComponent } from '../create-user-menu-permission/create-user-menu-permission.component';
+import { MenuPermissionConfigComponent } from '../menu-permission-config/menu-permission-config.component';
 interface menuItem {
   id: number,
   menuName: string,
@@ -34,7 +35,8 @@ interface menuItem {
     EditUserComponent,
     CreateMenuComponent,
     MenuConfigurationComponent,
-    CreateUserMenuPermissionComponent]
+    CreateUserMenuPermissionComponent,
+    MenuPermissionConfigComponent]
 })
 
 export class HomeComponent {

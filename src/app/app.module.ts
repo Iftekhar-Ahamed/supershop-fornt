@@ -25,9 +25,6 @@ import { MenuPermissionConfigComponent } from './Component/menu-permission-confi
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
-    MenuPermissionConfigComponent,
-
-
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -43,7 +40,7 @@ import { MenuPermissionConfigComponent } from './Component/menu-permission-confi
     MenuConfigurationComponent,
     CreateMenuComponent,
     CreateUserMenuPermissionComponent,
-
+    MenuPermissionConfigComponent,
   ],
   providers: [
     provideClientHydration(),
