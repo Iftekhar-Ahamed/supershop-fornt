@@ -17,6 +17,7 @@ import { NotificationReceivedComponent } from './Component/notification-received
 import { MenuConfigurationComponent } from './Component/menu-configuration/menu-configuration.component';
 import { CreateMenuComponent } from './Component/create-menu/create-menu.component';
 import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-permission/create-user-menu-permission.component';
+import { MenuPermissionConfigComponent } from './Component/menu-permission-config/menu-permission-config.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
+    MenuPermissionConfigComponent,
 
 
   ],
