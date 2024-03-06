@@ -65,10 +65,10 @@ export class EditUserComponent {
     isActive: null
   }
   constructor(private apiService: APIService, private dialog: MatDialog) { }
+
   ngOnInit(): void {
     this.getAllUser();
     this.getUserType();
-
   }
   getUserType() {
     const urlddl = "/User/GetUserType";

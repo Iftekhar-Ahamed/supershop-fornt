@@ -1,1 +1,23 @@
-<p>create-item works!</p>
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="user-form">
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" formControlName="itemName" placeholder="Your Item name.." required>
+
+        <label for="unitPriceSell">Unit Price Sell</label>
+        <input type="text" id="unitPriceSell" formControlName="unitPriceSell" placeholder="" required>
+
+        <label for="unitPricePurchase">Unit Price Purchase</label>
+        <input type="text" id="unitPricePurchase" formControlName="unitPricePurchase" placeholder="" required>
+
+        <label for="stockQuantity">Stock Quantity</label>
+        <input type="text" id="stockQuantity" formControlName="stockQuantity" placeholder="" required>
+
+        <label for="itemTypeId">Item Type</label>
+        <select id="itemTypeId" formControlName="itemTypeId" required>
+            <option *ngFor="let type of itemType" [value]="type.value">
+                {{ type.name }}
+            </option>
+        </select>
+        <input type="submit" value="Submit">
+    </div>
+</form>

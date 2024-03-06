@@ -1,1 +1,89 @@
-<p>item-config works!</p>
+<div class="config">
+    <div class="filter-boxes-container">
+        <div class="sort-box">
+            <div class="form-group">
+                <!-- <label for="taskdescription">Is Complete</label>
+                <select id="status" [(ngModel)]="sortLanding.status" placeholder="Priority">
+                    <option [ngValue]="null">ALL</option>
+                    <option [ngValue]="true">YES</option>
+                    <option [ngValue]="false">NO</option>
+                </select> -->
+            </div>
+        </div>
+        <div class="search-box">
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <input type="text" id="task" [(ngModel)]="datafilter.searchTerm" placeholder="Search by UserID Or Name"
+                    class="text-input">
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="getAllItem();">Search</button>
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="ResetSearchTerm();">All</button>
+            </div>
+
+        </div>
+    </div>
+
+    <table class="todo-table">
+        <thead>
+            <tr>
+                <th>Item Id</th>
+                <th>Item Name</th>
+                <th>Item Type</th>
+                <th>Unit Price Purchase</th>
+                <th>Unit Price Sell</th>
+                <th>Stock Quantity</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Item of itemView; let i = index">
+                <td>{{ Item.id }}</td>
+
+                <td *ngIf="editIndex !== i">{{ Item.itemName }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payloadItem.itemName" /></td>
+
+                <td>
+                    <!-- Display as text when not in edit mode -->
+                    <span *ngIf="editIndex !== i">{{ getItemTypeNameById(Item.itemTypeId) }}</span>
+
+                    <!-- Display as dropdown when in edit mode -->
+                    <select *ngIf="editIndex === i" [(ngModel)]="payloadItem.itemTypeId">
+                        <option *ngFor="let type of itemType" [ngValue]="type.value"
+                            [selected]="type.value === payloadItem.itemTypeId">
+                            {{ type.name }}
+                        </option>
+                    </select>
+                </td>
+
+
+
+                <td *ngIf="editIndex !== i">{{ Item.unitPricePurchase }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payloadItem.unitPricePurchase" /></td>
+
+                <td *ngIf="editIndex !== i">{{ Item.unitPriceSell }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payloadItem.unitPriceSell" /></td>
+
+                <td *ngIf="editIndex !== i">{{ Item.stockQuantity }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payloadItem.stockQuantity" /></td>
+
+                <td *ngIf="editIndex !== i">{{ Item.isActive ? 'Yes' : 'No' }}</td>
+                <td *ngIf="editIndex === i"><input type="checkbox" [(ngModel)]="payloadItem.isActive" /></td>
+
+                <td>
+                    <button *ngIf=" editIndex !== i" class="edit-button" (click)="editItem(i)">Edit</button>
+                    <button *ngIf=" editIndex !== i" class="delete-button"
+                        (click)="openPopupConfrimationForDelete(i)">Delete</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="save-button"
+                        class="save-button" (click)="openPopupConfrimationForUpdate(i)">Save</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="cancel-button"
+                        class="cancel-button" (click)="cancelEdit()">Cancel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
