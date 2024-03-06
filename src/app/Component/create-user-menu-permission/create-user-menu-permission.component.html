@@ -1,16 +1,18 @@
 <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
     <div class="user-form">
+
+        <select id="userId" formControlName="userId" required (change)="onUserChange()">
+            <option value="" disabled selected>Select User</option>
+            <option *ngFor="let user of users" [value]="user.value">{{ user.name }}</option>
+        </select>
+
         <label for="menuId">Menu</label>
         <select id="menuId" formControlName="menuId" required>
             <option value="" disabled selected>Select Menu</option>
-            <option *ngFor="let u of menus" [value]="u.value">{{ u.name }}</option>
+            <option *ngFor="let menu of menus" [value]="menu.value">{{ menu.name }}</option>
         </select>
 
-        <label for="userId">User</label>
-        <select id="userId" formControlName="userId" required>
-            <option value="" disabled selected>Select User</option>
-            <option *ngFor="let u of users" [value]="u.value">{{ u.name }}</option>
-        </select>
+
 
 
         <input type="submit" value="Submit">

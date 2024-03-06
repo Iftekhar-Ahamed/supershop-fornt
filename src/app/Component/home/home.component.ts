@@ -14,6 +14,12 @@ import { CreateMenuComponent } from '../create-menu/create-menu.component';
 import { MenuConfigurationComponent } from '../menu-configuration/menu-configuration.component';
 import { CreateUserMenuPermissionComponent } from '../create-user-menu-permission/create-user-menu-permission.component';
 import { MenuPermissionConfigComponent } from '../menu-permission-config/menu-permission-config.component';
+import { CreateItemTypeComponent } from '../create-item-type/create-item-type.component';
+import { CreateItemTransactionTypCofigComponent } from '../create-item-transaction-typ-cofig/create-item-transaction-typ-cofig.component';
+import { CreateItemTransactionTypeComponent } from '../create-item-transaction-type/create-item-transaction-type.component';
+import { CreateItemComponent } from '../create-item/create-item.component';
+import { ItemConfigComponent } from '../item-config/item-config.component';
+import { ItemTypeConfigComponent } from '../item-type-config/item-type-config.component';
 interface menuItem {
   id: number,
   menuName: string,
@@ -36,7 +42,13 @@ interface menuItem {
     CreateMenuComponent,
     MenuConfigurationComponent,
     CreateUserMenuPermissionComponent,
-    MenuPermissionConfigComponent]
+    MenuPermissionConfigComponent,
+    CreateItemTypeComponent,
+    ItemTypeConfigComponent,
+    CreateItemComponent,
+    ItemConfigComponent,
+    CreateItemTransactionTypeComponent,
+    CreateItemTransactionTypCofigComponent]
 })
 
 export class HomeComponent {

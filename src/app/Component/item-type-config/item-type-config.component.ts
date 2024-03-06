@@ -2,16 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, map, catchError, switchMap } from 'rxjs';
 import { APIService } from '../../api.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { PopupComponent } from '../popup/popup.component';
-import { Observable, catchError, map, switchMap } from 'rxjs';
-interface menuPermission {
+interface ItemType {
   id: number;
-  menuId: number;
-  menuName: string;
-  userId: number;
-  userFullName: string;
+  itemTypeName: string;
+  uom: string;
   isActive: boolean;
 }
 interface filterData {
@@ -20,26 +18,25 @@ interface filterData {
 }
 
 @Component({
-  selector: 'app-menu-permission-config',
-  templateUrl: './menu-permission-config.component.html',
-  styleUrl: './menu-permission-config.component.css',
+  selector: 'app-item-type-config',
+  templateUrl: './item-type-config.component.html',
+  styleUrl: './item-type-config.component.css',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
-export class MenuPermissionConfigComponent {
 
+export class ItemTypeConfigComponent {
   editIndex: number = -1;
 
-  menuPermissionView: Array<menuPermission> = [];
+  itemTypeView: Array<ItemType> = [];
 
-  payload: menuPermission = {
+  payload: ItemType = {
     id: 0,
-    menuId: 0,
-    menuName: "",
-    userId: 0,
-    userFullName: "",
+    itemTypeName: "",
+    uom: "",
     isActive: true
   };
+
 
   isEditAndDeleteVisiable: boolean = true;
 
@@ -51,27 +48,27 @@ export class MenuPermissionConfigComponent {
   constructor(private apiService: APIService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getAllMenuPermission();
+    this.getAllItemType();
   }
 
-  getAllMenuPermission() {
-    let url = `/User/GetAllMenuPermission`;
+  getAllItemType() {
+    let url = `/User/GetAllItemType`;
     if (this.datafilter.searchTerm) {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
     this.apiService.get(url).subscribe(res => {
-      this.menuPermissionView = res.key;
+      this.itemTypeView = res.key;
     }, (error) => {
       console.log(error);
     });
   }
 
   deleteMenuPermission(index: number) {
-    const UserId = this.menuPermissionView[index].id;
-    this.apiService.post(UserId, "/User/DeleteMenuPermissionById").subscribe(
+    const itemTypeId = this.itemTypeView[index].id;
+    this.apiService.post(itemTypeId, "/User/DeleteItemType").subscribe(
       res => {
         if (res.statusCode === 200) {
-          this.menuPermissionView.splice(index, 1);
+          this.itemTypeView.splice(index, 1);
           this.openPopup(res.message, "OK", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
         } else {
           this.openPopup(res.message, "OK", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
@@ -82,10 +79,10 @@ export class MenuPermissionConfigComponent {
       }
     );
   }
-  getMenuPermissionById(index: number): Observable<menuPermission> {
-    const url = `/User/GetMenuPermissionById?MenuPermissionId=${this.menuPermissionView[index].id}`;
+  getMenuPermissionById(index: number): Observable<ItemType> {
+    const url = `/User/GetItemTypeById?Id=${this.itemTypeView[index].id}`;
     return this.apiService.get(url).pipe(
-      map((res: any) => res.key as menuPermission),
+      map((res: any) => res.key as ItemType),
       catchError(error => {
         console.error('Error fetching user by Id:', error);
         throw error;
@@ -95,12 +92,12 @@ export class MenuPermissionConfigComponent {
 
   updateMenuPermission(index: number): void {
     console.log("OK");
-    this.apiService.post(this.payload, "/User/CreateUpdateUserMenuPermission").pipe(
+    this.apiService.post(this.payload, "/User/UpdateItemType").pipe(
       switchMap(() => this.getMenuPermissionById(index))
     ).subscribe(
       updatedData => {
-        const newdata = updatedData as menuPermission;
-        this.menuPermissionView[index] = newdata;
+        const newdata = updatedData as ItemType;
+        this.itemTypeView[index] = newdata;
         this.openPopup("Update Successful", "OK", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
       },
       error => {
@@ -115,7 +112,7 @@ export class MenuPermissionConfigComponent {
   ResetSearchTerm() {
     this.datafilter.searchTerm = null;
     this.datafilter.isActive = null;
-    this.getAllMenuPermission();
+    this.getAllItemType();
   }
   editMenuPermission(index: number): void {
     this.initialUserInput(index);
@@ -124,16 +121,13 @@ export class MenuPermissionConfigComponent {
   }
   initialUserInput(index: number) {
     this.payload = {
-      id: this.menuPermissionView[index].id,
-      menuName: this.menuPermissionView[index].menuName,
-      menuId: this.menuPermissionView[index].menuId,
-      userFullName: this.menuPermissionView[index].userFullName,
-      userId: this.menuPermissionView[index].userId,
-      isActive: this.menuPermissionView[index].isActive,
+      id: this.itemTypeView[index].id,
+      itemTypeName: this.itemTypeView[index].itemTypeName,
+      uom: this.itemTypeView[index].uom,
+      isActive: this.itemTypeView[index].isActive,
     };
   }
   cancelEdit(): void {
-
     this.editIndex = -1;
     this.isEditAndDeleteVisiable = true;
   }
@@ -169,4 +163,3 @@ export class MenuPermissionConfigComponent {
     });
   }
 }
-

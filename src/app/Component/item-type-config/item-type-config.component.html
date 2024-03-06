@@ -14,11 +14,11 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <input type="text" id="task" [(ngModel)]="datafilter.searchTerm"
-                    placeholder="Search by Menu,User Id Or Name" class="text-input">
+                <input type="text" id="task" [(ngModel)]="datafilter.searchTerm" placeholder="Search by Type Name or Id"
+                    class="text-input">
             </div>
             <div class="form-group">
-                <button class="common-button" (click)="getAllMenuPermission();">Search</button>
+                <button class="common-button" (click)="getAllItemType();">Search</button>
             </div>
             <div class="form-group">
                 <button class="common-button" (click)="ResetSearchTerm();">All</button>
@@ -30,24 +30,23 @@
     <table class="todo-table">
         <thead>
             <tr>
-                <th>Menu Id</th>
-                <th>Menu Name</th>
-                <th>User Id</th>
-                <th>User Name</th>
+                <th>Item Type Id</th>
+                <th>Item Type Name</th>
+                <th>UOM</th>
                 <th>Active</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of menuPermissionView; let i = index">
+            <tr *ngFor="let item of itemTypeView; let i = index">
 
-                <td>{{ item.menuId }}</td>
+                <td>{{ item.id }}</td>
 
-                <td>{{ item.menuName }}</td>
+                <td *ngIf="editIndex !== i">{{ item.itemTypeName }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payload.itemTypeName" /></td>
 
-                <td>{{ item.userId }}</td>
-
-                <td>{{ item.userFullName }}</td>
+                <td *ngIf="editIndex !== i">{{ item.uom }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payload.uom" /></td>
 
                 <td *ngIf="editIndex !== i">{{ item.isActive ? 'Yes' : 'No' }}</td>
                 <td *ngIf="editIndex === i"><input type="checkbox" [(ngModel)]="payload.isActive" /></td>

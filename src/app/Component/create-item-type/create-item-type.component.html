@@ -1,0 +1,12 @@
+<form [formGroup]="itemTypeFrom" (ngSubmit)="onSubmit()">
+    <div class="user-form">
+        <label for="itemTypeName">Type Name</label>
+        <input type="text" id="itemTypeName" formControlName="itemTypeName" placeholder="Enter Item Type Name.."
+            required>
+
+        <label for="uom">Menu Url</label>
+        <input type="text" id="uom" formControlName="uom" placeholder="Enter Unit Of measurement.." required>
+
+        <input type="submit" value="Submit">
+    </div>
+</form>

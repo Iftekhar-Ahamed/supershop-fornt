@@ -9,6 +9,10 @@ interface CommonDDL {
   value: number,
   name: string
 }
+interface filterData {
+  searchTerm?: string | null,
+  isActive?: boolean | null,
+}
 @Component({
   selector: 'app-create-user-menu-permission',
   templateUrl: './create-user-menu-permission.component.html',
@@ -20,14 +24,15 @@ export class CreateUserMenuPermissionComponent {
   requestForm!: FormGroup;
   users: CommonDDL[] = [];
   menus: CommonDDL[] = [];
-
-
+  datafilter: filterData = {
+    searchTerm: null,
+    isActive: null
+  }
 
   constructor(private fb: FormBuilder, private apiService: APIService, private dialog: MatDialog) {
     this.initializeForm();
   }
   initializeForm(): void {
-    this.getMenuDDL();
     this.getUserDDL();
     this.requestForm = this.fb.group({
       menuId: ['', Validators.required],
@@ -36,7 +41,10 @@ export class CreateUserMenuPermissionComponent {
     });
   }
   getMenuDDL() {
-    const urlddl = "/User/GetMenuDDL";
+    let urlddl = "/User/GetMenuDDL";
+    if (this.datafilter.searchTerm) {
+      urlddl += `?UserId=${this.datafilter.searchTerm}`;
+    }
     this.apiService.get(urlddl).subscribe(
       res => {
         this.menus = res.key;
@@ -45,6 +53,10 @@ export class CreateUserMenuPermissionComponent {
         console.error('Error fetching todos:', error);
       }
     );
+  }
+  onUserChange() {
+    this.datafilter.searchTerm = this.requestForm.value.userId
+    this.getMenuDDL();
   }
   getUserDDL() {
     const urlddl = "/User/GetUserDDL";
@@ -59,7 +71,7 @@ export class CreateUserMenuPermissionComponent {
   }
 
   onSubmit(): void {
-    const url = "/User/UserMenuPermission";
+    const url = "/User/CreateUpdateUserMenuPermission";
     this.apiService.post(this.requestForm.value, url).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
       this.initializeForm();

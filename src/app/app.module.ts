@@ -18,6 +18,12 @@ import { MenuConfigurationComponent } from './Component/menu-configuration/menu-
 import { CreateMenuComponent } from './Component/create-menu/create-menu.component';
 import { CreateUserMenuPermissionComponent } from './Component/create-user-menu-permission/create-user-menu-permission.component';
 import { MenuPermissionConfigComponent } from './Component/menu-permission-config/menu-permission-config.component';
+import { CreateItemTypeComponent } from './Component/create-item-type/create-item-type.component';
+import { ItemTypeConfigComponent } from './Component/item-type-config/item-type-config.component';
+import { CreateItemComponent } from './Component/create-item/create-item.component';
+import { ItemConfigComponent } from './Component/item-config/item-config.component';
+import { CreateItemTransactionTypeComponent } from './Component/create-item-transaction-type/create-item-transaction-type.component';
+import { CreateItemTransactionTypCofigComponent } from './Component/create-item-transaction-typ-cofig/create-item-transaction-typ-cofig.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +31,7 @@ import { MenuPermissionConfigComponent } from './Component/menu-permission-confi
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
+
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -41,6 +48,12 @@ import { MenuPermissionConfigComponent } from './Component/menu-permission-confi
     CreateMenuComponent,
     CreateUserMenuPermissionComponent,
     MenuPermissionConfigComponent,
+    CreateItemTypeComponent,
+    ItemTypeConfigComponent,
+    CreateItemComponent,
+    ItemConfigComponent,
+    CreateItemTransactionTypeComponent,
+    CreateItemTransactionTypCofigComponent,
   ],
   providers: [
     provideClientHydration(),
