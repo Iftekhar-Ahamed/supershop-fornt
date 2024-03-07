@@ -1,1 +1,9 @@
-<p>create-item-transaction-type works!</p>
+<form [formGroup]="itemTransactionTypeFrom" (ngSubmit)="onSubmit()">
+    <div class="user-form">
+        <label for="transactionName">Item Transaction Type Name</label>
+        <input type="text" id="transactionName" formControlName="transactionName" placeholder="Enter Transaction Type.."
+            required>
+
+        <input type="submit" value="Submit">
+    </div>
+</form>
