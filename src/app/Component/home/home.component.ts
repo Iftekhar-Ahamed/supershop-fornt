@@ -20,6 +20,7 @@ import { CreateItemTransactionTypeComponent } from '../create-item-transaction-t
 import { CreateItemComponent } from '../create-item/create-item.component';
 import { ItemConfigComponent } from '../item-config/item-config.component';
 import { ItemTypeConfigComponent } from '../item-type-config/item-type-config.component';
+import { ItemTransactionComponent } from '../item-transaction/item-transaction.component';
 interface menuItem {
   id: number,
   menuName: string,
@@ -48,7 +49,8 @@ interface menuItem {
     CreateItemComponent,
     ItemConfigComponent,
     CreateItemTransactionTypeComponent,
-    CreateItemTransactionTypCofigComponent]
+    CreateItemTransactionTypCofigComponent,
+    ItemTransactionComponent]
 })
 
 export class HomeComponent {

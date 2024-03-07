@@ -24,6 +24,7 @@ import { CreateItemComponent } from './Component/create-item/create-item.compone
 import { ItemConfigComponent } from './Component/item-config/item-config.component';
 import { CreateItemTransactionTypeComponent } from './Component/create-item-transaction-type/create-item-transaction-type.component';
 import { CreateItemTransactionTypCofigComponent } from './Component/create-item-transaction-typ-cofig/create-item-transaction-typ-cofig.component';
+import { ItemTransactionComponent } from './Component/item-transaction/item-transaction.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CreateItemTransactionTypCofigComponent } from './Component/create-item-
     ItemConfigComponent,
     CreateItemTransactionTypeComponent,
     CreateItemTransactionTypCofigComponent,
+    ItemTransactionComponent,
   ],
   providers: [
     provideClientHydration(),

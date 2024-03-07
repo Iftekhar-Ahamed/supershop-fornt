@@ -1,0 +1,44 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="user-form">
+
+        <label for="itemId">Select Item</label>
+
+        <select (change)="onItemSelected($event)">
+            <option disabled selected value="">Select an Item</option>
+            <option *ngFor="let type of itemDDL" [value]="type.value">
+                {{ type.name }}
+            </option>
+        </select>
+
+
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" formControlName="itemName" placeholder="Your Item name.." readonly>
+
+        <label for="itemTypeName">Item Type</label>
+        <input type="text" id="itemTypeName" formControlName="itemTypeName" placeholder="Your Item name.." readonly>
+
+        <label for="uom">UOM</label>
+        <input type="text" id="uom" formControlName="uom" placeholder="Unit of Measurement" readonly>
+
+        <label for="unitPriceSell">Unit Price Sell</label>
+        <input type="text" id="unitPriceSell" formControlName="unitPriceSell" placeholder="" readonly>
+
+        <label for="unitPricePurchase">Unit Price Purchase</label>
+        <input type="text" id="unitPricePurchase" formControlName="unitPricePurchase" placeholder="" readonly>
+
+        <label for="stockQuantity">Stock Quantity</label>
+        <input type="text" id="stockQuantity" formControlName="stockQuantity" placeholder="" readonly>
+
+        <label for="transactionType">Transaction Type</label>
+        <select id="transactionType" formControlName="transactionType" required>
+            <option *ngFor="let type of transactionType" [value]="type.value">
+                {{ type.name }}
+            </option>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <input type="text" id="quantity" formControlName="quantity" placeholder="Enter Quantity">
+
+        <input type="submit" value="Submit">
+    </div>
+</form>
