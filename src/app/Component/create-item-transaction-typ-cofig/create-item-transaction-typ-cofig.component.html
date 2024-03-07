@@ -1,1 +1,62 @@
-<p>create-item-transaction-typ-cofig works!</p>
+<div class="config">
+    <div class="filter-boxes-container">
+        <div class="sort-box">
+            <div class="form-group">
+                <!-- <label for="taskdescription">Is Complete</label>
+                <select id="status" [(ngModel)]="sortLanding.status" placeholder="Priority">
+                    <option [ngValue]="null">ALL</option>
+                    <option [ngValue]="true">YES</option>
+                    <option [ngValue]="false">NO</option>
+                </select> -->
+            </div>
+        </div>
+        <div class="search-box">
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <input type="text" id="task" [(ngModel)]="datafilter.searchTerm" placeholder="Search by Type Name or Id"
+                    class="text-input">
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="getAlltransactionType();">Search</button>
+            </div>
+            <div class="form-group">
+                <button class="common-button" (click)="ResetSearchTerm();">All</button>
+            </div>
+
+        </div>
+    </div>
+
+    <table class="todo-table">
+        <thead>
+            <tr>
+                <th>Item Transaction Type Id</th>
+                <th>Item Transaction Type Name</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of transactionTypeView; let i = index">
+
+                <td>{{ item.id }}</td>
+
+                <td *ngIf="editIndex !== i"> {{ item.transactionName }}</td>
+                <td *ngIf="editIndex === i"><input type="text" [(ngModel)]="payload.transactionName" /></td>
+
+                <td *ngIf="editIndex !== i">{{ item.isActive ? 'Yes' : 'No' }}</td>
+                <td *ngIf="editIndex === i"><input type="checkbox" [(ngModel)]="payload.isActive" /></td>
+
+                <td>
+                    <button *ngIf=" editIndex !== i" class="edit-button" (click)="editMenuPermission(i)">Edit</button>
+                    <button *ngIf=" editIndex !== i" class="delete-button"
+                        (click)="openPopupConfrimationForDelete(i)">Delete</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="save-button"
+                        class="save-button" (click)="openPopupConfrimationForUpdate(i)">Save</button>
+                    <button *ngIf="isEditAndDeleteVisiable === false && editIndex === i" class="cancel-button"
+                        class="cancel-button" (click)="cancelEdit()">Cancel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

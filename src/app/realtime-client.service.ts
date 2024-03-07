@@ -6,21 +6,35 @@ import * as signalR from '@microsoft/signalr';
 export class RealtimeClientService {
   private hubConnection: signalR.HubConnection;
   notificationReceived: any;
+
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:44330/notificationHub', {
-        withCredentials: true
+      .withUrl('https://localhost:44330/notificationHub')
+      .withAutomaticReconnect({
+        nextRetryDelayInMilliseconds: retryContext => {
+          return 1 * 10000; // Set a longer reconnect interval
+        }
       })
       .build();
-    console.log("In RealtimeClientService")
+    this.hubConnection.onreconnecting(error => {
+      console.log('SignalR reconnecting:', error);
+    });
+
+    this.hubConnection.onreconnected(connectionId => {
+      console.log('SignalR reconnected. Connection ID:', connectionId);
+    });
 
     this.hubConnection
       .start()
       .then(() => console.log('Connected to SignalR hub'))
       .catch(err => console.error('Error connecting to SignalR hub:', err));
+
     this.hubConnection.on('broadcastMessage', (notification: string) => {
-      this.notificationReceived.addNotification(notification);
+      // Check if notificationReceived is defined before calling addNotification
+      if (this.notificationReceived) {
+        this.notificationReceived.addNotification(notification);
+      }
     });
   }
-
 }
+
