@@ -49,7 +49,7 @@ export class CreateItemComponent {
   }
 
   onSubmit(): void {
-    const urlddl = "/User/CreateItem";
+    const urlddl = "/Item/CreateItem";
     const formData: item = this.itemForm.value;
     this.apiService.post(formData, urlddl).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");

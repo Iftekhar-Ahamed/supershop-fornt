@@ -34,7 +34,7 @@ export class CreateMenuComponent {
   }
 
   onSubmit(): void {
-    const url = "/User/CreateMenu";
+    const url = "/Menu/CreateMenu";
     const formData: menu = this.menuForm.value;
     this.apiService.post(formData, url).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");

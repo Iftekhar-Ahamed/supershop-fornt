@@ -55,7 +55,7 @@ export class MenuPermissionConfigComponent {
   }
 
   getAllMenuPermission() {
-    let url = `/User/GetAllMenuPermission`;
+    let url = `/Menu/GetAllMenuPermission`;
     if (this.datafilter.searchTerm) {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
@@ -68,7 +68,7 @@ export class MenuPermissionConfigComponent {
 
   deleteMenuPermission(index: number) {
     const UserId = this.menuPermissionView[index].id;
-    this.apiService.post(UserId, "/User/DeleteMenuPermissionById").subscribe(
+    this.apiService.post(UserId, "/Menu/DeleteMenuPermissionById").subscribe(
       res => {
         if (res.statusCode === 200) {
           this.menuPermissionView.splice(index, 1);
@@ -83,7 +83,7 @@ export class MenuPermissionConfigComponent {
     );
   }
   getMenuPermissionById(index: number): Observable<menuPermission> {
-    const url = `/User/GetMenuPermissionById?MenuPermissionId=${this.menuPermissionView[index].id}`;
+    const url = `/Menu/GetMenuPermissionById?MenuPermissionId=${this.menuPermissionView[index].id}`;
     return this.apiService.get(url).pipe(
       map((res: any) => res.key as menuPermission),
       catchError(error => {
@@ -95,7 +95,7 @@ export class MenuPermissionConfigComponent {
 
   updateMenuPermission(index: number): void {
     console.log("OK");
-    this.apiService.post(this.payload, "/User/CreateUpdateUserMenuPermission").pipe(
+    this.apiService.post(this.payload, "/Menu/CreateUpdateUserMenuPermission").pipe(
       switchMap(() => this.getMenuPermissionById(index))
     ).subscribe(
       updatedData => {

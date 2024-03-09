@@ -77,7 +77,7 @@ export class ItemTransactionComponent {
     this.setform(this.GetItemById(selectedValue));
   }
   GetItemById(id: number) {
-    const url = `/User/GetItemById?Id=${id}`;
+    const url = `/Item/GetItemById?Id=${id}`;
     return this.apiService.get(url).subscribe(res => {
       this.setform(res.key);
     },
@@ -87,7 +87,7 @@ export class ItemTransactionComponent {
   }
 
   onSubmit(): void {
-    const urlddl = "/User/CreateItem";
+    const urlddl = "/Item/CreateItem";
     const formData: item = this.itemForm.value;
     this.apiService.post(formData, urlddl).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
@@ -98,7 +98,7 @@ export class ItemTransactionComponent {
   }
 
   getItemType() {
-    const urlddl = "/User/GetItemDDL";
+    const urlddl = "/Item/GetItemDDL";
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemDDL = [];
@@ -112,7 +112,7 @@ export class ItemTransactionComponent {
     );
   }
   getTransactionType() {
-    const urlddl = "/User/GetItemTransactionTypeDDL";
+    const urlddl = "/Item/GetItemTransactionTypeDDL";
     this.apiService.get(urlddl).subscribe(
       res => {
         this.transactionType = [];

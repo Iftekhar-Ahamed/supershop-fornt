@@ -42,7 +42,7 @@ export class CreateItemTypeComponent {
   }
 
   onSubmit(): void {
-    const url = "/User/CreateItemType";
+    const url = "/Item/CreateItemType";
     const formData: ItemType = this.itemTypeFrom.value;
     this.apiService.post(formData, url).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");

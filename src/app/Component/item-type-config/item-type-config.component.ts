@@ -52,7 +52,7 @@ export class ItemTypeConfigComponent {
   }
 
   getAllItemType() {
-    let url = `/User/GetAllItemType`;
+    let url = `/Item/GetAllItemType`;
     if (this.datafilter.searchTerm) {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
@@ -65,7 +65,7 @@ export class ItemTypeConfigComponent {
 
   deleteMenuPermission(index: number) {
     const itemTypeId = this.itemTypeView[index].id;
-    this.apiService.post(itemTypeId, "/User/DeleteItemType").subscribe(
+    this.apiService.post(itemTypeId, "/Item/DeleteItemType").subscribe(
       res => {
         if (res.statusCode === 200) {
           this.itemTypeView.splice(index, 1);
@@ -80,7 +80,7 @@ export class ItemTypeConfigComponent {
     );
   }
   getMenuPermissionById(index: number): Observable<ItemType> {
-    const url = `/User/GetItemTypeById?Id=${this.itemTypeView[index].id}`;
+    const url = `/Item/GetItemTypeById?Id=${this.itemTypeView[index].id}`;
     return this.apiService.get(url).pipe(
       map((res: any) => res.key as ItemType),
       catchError(error => {
@@ -92,7 +92,7 @@ export class ItemTypeConfigComponent {
 
   updateMenuPermission(index: number): void {
     console.log("OK");
-    this.apiService.post(this.payload, "/User/UpdateItemType").pipe(
+    this.apiService.post(this.payload, "/Item/UpdateItemType").pipe(
       switchMap(() => this.getMenuPermissionById(index))
     ).subscribe(
       updatedData => {

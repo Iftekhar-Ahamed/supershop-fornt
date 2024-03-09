@@ -58,7 +58,7 @@ export class ItemConfigComponent {
 
 
   getItemType() {
-    const urlddl = "/User/GetItemTypeDDL";
+    const urlddl = "/Item/GetItemTypeDDL";
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemType = [];
@@ -75,7 +75,7 @@ export class ItemConfigComponent {
 
 
   getAllItem() {
-    const url = "/User/getAllItem?" + (this.datafilter.isActive != null ? "IsActive=" + this.datafilter.isActive : "") +
+    const url = "/Item/getAllItem?" + (this.datafilter.isActive != null ? "IsActive=" + this.datafilter.isActive : "") +
       (this.datafilter.searchTerm != null ? "SearchTerm=" + this.datafilter.searchTerm : "");
 
     this.apiService.get(url).subscribe(
@@ -91,7 +91,7 @@ export class ItemConfigComponent {
     );
   }
   GetItemById(id: number): Observable<item> {
-    const url = `/User/GetItemById?Id=${id}`;
+    const url = `/Item/GetItemById?Id=${id}`;
     return this.apiService.get(url).pipe(
       map(res => {
         return res.key as item;
@@ -124,7 +124,7 @@ export class ItemConfigComponent {
   }
 
   saveItem(index: number): void {
-    this.apiService.post(this.payloadItem, "/User/UpdateItem").pipe(
+    this.apiService.post(this.payloadItem, "/Item/UpdateItem").pipe(
       switchMap(() => this.GetItemById(this.itemView[index].id))
     ).subscribe(
       updatedItem => {
@@ -148,7 +148,7 @@ export class ItemConfigComponent {
 
   deleteItem(index: number) {
     const itemid = this.itemView[index].id;
-    this.apiService.post(itemid, "/User/DeleteItem").subscribe(
+    this.apiService.post(itemid, "/Item/DeleteItem").subscribe(
       res => {
         this.itemView.splice(index, 1);
         this.openPopup(res.message, "OK", "https://cdn-icons-png.flaticon.com/512/190/190411.png");

@@ -50,7 +50,7 @@ export class MenuConfigurationComponent {
 
   }
   getAllMenu() {
-    let url = '/User/GetAllMenus';
+    let url = '/Menu/GetAllMenus';
 
     if (this.datafilter.searchTerm !== null) {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
@@ -69,7 +69,7 @@ export class MenuConfigurationComponent {
     );
   }
   getMenuById(id: number): Observable<menuConfigPayLoad> {
-    const url = `/User/GetMenuById?MenuId=${id}`;
+    const url = `/Menu/GetMenuById?MenuId=${id}`;
     return this.apiService.get(url).pipe(
       map(res => {
         return res.key;
@@ -97,7 +97,7 @@ export class MenuConfigurationComponent {
     };
   }
   saveMenu(index: number): void {
-    this.apiService.post(this.payload, "/User/UpdateMenu").pipe(
+    this.apiService.post(this.payload, "/Menu/UpdateMenu").pipe(
       switchMap(() => this.getMenuById(this.menuView[index].id))
     ).subscribe(
       updatedData => {
@@ -114,7 +114,7 @@ export class MenuConfigurationComponent {
   }
   deleteMenu(index: number) {
     const UserId = this.menuView[index].id;
-    this.apiService.post(UserId, "/User/DeleteMenuById").subscribe(
+    this.apiService.post(UserId, "/Menu/DeleteMenuById").subscribe(
       res => {
         if (res.statusCode === 200) {
           this.menuView.splice(index, 1);

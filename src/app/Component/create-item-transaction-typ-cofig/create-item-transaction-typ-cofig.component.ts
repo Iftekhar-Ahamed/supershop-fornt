@@ -52,7 +52,7 @@ export class CreateItemTransactionTypCofigComponent {
   }
 
   getAlltransactionType() {
-    let url = `/User/GetAllItemTransactionType`;
+    let url = `/Item/GetAllItemTransactionType`;
     if (this.datafilter.searchTerm) {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
@@ -67,7 +67,7 @@ export class CreateItemTransactionTypCofigComponent {
 
   deleteMenuPermission(index: number) {
     const transactionTypeId = this.transactionTypeView[index].id;
-    this.apiService.post(transactionTypeId, "/User/DeleteItemTransactionType").subscribe(
+    this.apiService.post(transactionTypeId, "/Item/DeleteItemTransactionType").subscribe(
       res => {
         if (res.statusCode === 200) {
           this.transactionTypeView.splice(index, 1);
@@ -82,7 +82,7 @@ export class CreateItemTransactionTypCofigComponent {
     );
   }
   getMenuPermissionById(index: number): Observable<transactionType> {
-    const url = `/User/GetItemTransactionTypeById?Id=${this.transactionTypeView[index].id}`;
+    const url = `/Item/GetItemTransactionTypeById?Id=${this.transactionTypeView[index].id}`;
     return this.apiService.get(url).pipe(
       map((res: any) => res.key as transactionType),
       catchError(error => {

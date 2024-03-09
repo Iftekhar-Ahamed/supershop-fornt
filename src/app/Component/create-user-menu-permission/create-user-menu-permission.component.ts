@@ -41,7 +41,7 @@ export class CreateUserMenuPermissionComponent {
     });
   }
   getMenuDDL() {
-    let urlddl = "/User/GetMenuDDL";
+    let urlddl = "/Menu/GetMenuDDL";
     if (this.datafilter.searchTerm) {
       urlddl += `?UserId=${this.datafilter.searchTerm}`;
     }
@@ -71,7 +71,7 @@ export class CreateUserMenuPermissionComponent {
   }
 
   onSubmit(): void {
-    const url = "/User/CreateUpdateUserMenuPermission";
+    const url = "/Menu/CreateUpdateUserMenuPermission";
     this.apiService.post(this.requestForm.value, url).subscribe(res => {
       this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
       this.initializeForm();
