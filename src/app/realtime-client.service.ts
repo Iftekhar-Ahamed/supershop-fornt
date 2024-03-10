@@ -1,20 +1,18 @@
 import { Injectable, Signal } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { NotificationReceivedComponent } from './Component/notification-received/notification-received.component';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class RealtimeClientService {
   private hubConnection: signalR.HubConnection;
-  notificationReceived: any;
+  private notificationSubject = new Subject<string>();
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:44330/notificationHub')
-      .withAutomaticReconnect({
-        nextRetryDelayInMilliseconds: retryContext => {
-          return 1 * 10000; // Set a longer reconnect interval
-        }
-      })
+      .withAutomaticReconnect()
       .build();
     this.hubConnection.onreconnecting(error => {
       console.log('SignalR reconnecting:', error);
@@ -30,11 +28,12 @@ export class RealtimeClientService {
       .catch(err => console.error('Error connecting to SignalR hub:', err));
 
     this.hubConnection.on('broadcastMessage', (notification: string) => {
-      // Check if notificationReceived is defined before calling addNotification
-      if (this.notificationReceived) {
-        this.notificationReceived.addNotification(notification);
-      }
+      alert(notification);
+      this.notificationSubject.next(notification);
     });
+  }
+  getNotificationObservable() {
+    return this.notificationSubject.asObservable();
   }
 }
 

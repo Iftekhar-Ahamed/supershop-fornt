@@ -25,6 +25,7 @@ import { ItemConfigComponent } from './Component/item-config/item-config.compone
 import { CreateItemTransactionTypeComponent } from './Component/create-item-transaction-type/create-item-transaction-type.component';
 import { CreateItemTransactionTypCofigComponent } from './Component/create-item-transaction-typ-cofig/create-item-transaction-typ-cofig.component';
 import { ItemTransactionComponent } from './Component/item-transaction/item-transaction.component';
+import { RealtimeClientService } from './realtime-client.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { ItemTransactionComponent } from './Component/item-transaction/item-tran
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

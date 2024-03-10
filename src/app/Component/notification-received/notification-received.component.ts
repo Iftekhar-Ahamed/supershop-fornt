@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 import { RealtimeClientService } from '../../realtime-client.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notification-received',
@@ -7,19 +10,26 @@ import { RealtimeClientService } from '../../realtime-client.service';
   styleUrl: './notification-received.component.css'
 })
 
-export class NotificationReceivedComponent implements OnInit {
-  latestNotification: string | null = null;
+export class NotificationReceivedComponent {
 
-  constructor(private notificationService: RealtimeClientService) { }
+  private notificationSubscription: Subscription;
 
-  ngOnInit(): void {
-    this.notificationService.notificationReceived.subscribe((message: string) => {
-      this.latestNotification = message;
-
-      // Clear the notification after a certain time (e.g., 5 seconds)
-      setTimeout(() => {
-        this.latestNotification = null;
-      }, 5000);
-    });
+  constructor(private realtimeClientService: RealtimeClientService) {
+    this.notificationSubscription = this.realtimeClientService
+      .getNotificationObservable()
+      .subscribe(notification => {
+        console.log(notification);
+        this.openSnackBar(notification, 3);
+      });
   }
+
+  ngOnDestroy() {
+    this.notificationSubscription.unsubscribe();
+  }
+
+  openSnackBar(notification: string, duration: number): void {
+    // Implement your snackbar logic here
+    console.log('Notification Received:', notification);
+  }
+
 }

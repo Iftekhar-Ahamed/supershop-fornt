@@ -21,6 +21,7 @@ import { CreateItemComponent } from '../create-item/create-item.component';
 import { ItemConfigComponent } from '../item-config/item-config.component';
 import { ItemTypeConfigComponent } from '../item-type-config/item-type-config.component';
 import { ItemTransactionComponent } from '../item-transaction/item-transaction.component';
+import { NotificationReceivedComponent } from '../notification-received/notification-received.component';
 interface menuItem {
   id: number,
   menuName: string,

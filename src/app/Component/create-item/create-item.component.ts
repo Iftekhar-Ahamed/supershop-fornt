@@ -60,7 +60,7 @@ export class CreateItemComponent {
   }
 
   getItemType() {
-    const urlddl = "/User/GetItemTypeDDL";
+    const urlddl = "/Item/GetItemTypeDDL";
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemType = [];
