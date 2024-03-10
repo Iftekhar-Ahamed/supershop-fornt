@@ -1,8 +1,10 @@
 <div class="container">
     <div class="cookiesContent" id="cookiesPopup">
         <button class="close" (click)="close()">✖</button>
-        <img src={{imgsource}} alt="cookies-img" />
-        <p>{{ message }}</p>
+        <img src="{{imgsource}}" alt="cookies-img" />
+        <ng-container *ngFor="let line of messageLines">
+            <p>{{ line }}</p>
+        </ng-container>
         <button class="accept" (click)="close()">{{action}}</button>
     </div>
 </div>

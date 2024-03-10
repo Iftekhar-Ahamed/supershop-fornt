@@ -7,9 +7,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './popup.component.css'
 })
 export class PopupComponent {
-  message: string = '';
-  imgsource: string = '';
+  imgsource: string;
   action: string = '';
+  message: string;
 
   constructor(
     public dialogRef: MatDialogRef<PopupComponent>,
@@ -19,7 +19,9 @@ export class PopupComponent {
     this.action = data.action;
     this.imgsource = data.imgsource;
   }
-
+  get messageLines(): string[] {
+    return this.message.split('\n');
+  }
   close(): void {
     this.dialogRef.close();
   }

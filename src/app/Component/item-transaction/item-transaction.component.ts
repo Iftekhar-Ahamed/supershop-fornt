@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { APIService } from '../../api.service';
 import { PopupComponent } from '../popup/popup.component';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, from, map } from 'rxjs';
 interface item {
   id: number;
   itemTypeId: number;
@@ -16,6 +16,7 @@ interface item {
   stockQuantity: number;
   isActive: boolean;
 }
+
 interface CommonDDL {
   value: number,
   name: string
@@ -31,6 +32,7 @@ export class ItemTransactionComponent {
   itemForm!: FormGroup;
   itemDDL: CommonDDL[] = [];
   transactionType: CommonDDL[] = [];
+  @ViewChild('itemSelect') itemSelect: any;
   editMode: boolean = false;
   constructor(private fb: FormBuilder, private apiService: APIService, private dialog: MatDialog) { }
 
@@ -42,7 +44,7 @@ export class ItemTransactionComponent {
 
   initializeForm(): void {
     this.itemForm = this.fb.group({
-      id: [0, Validators.required],
+      itemId: [0, Validators.required],
       itemTypeId: [0, Validators.required],
       itemName: ['', Validators.required],
       uom: ['', Validators.required],
@@ -50,15 +52,14 @@ export class ItemTransactionComponent {
       unitPriceSell: [0, Validators.required],
       unitPricePurchase: [0, Validators.required],
       stockQuantity: [0, Validators.required],
-      quantity: [0, Validators.required],
-      transationType: [0, Validators.required],
+      unitOfAmount: [0, Validators.required],
+      transactionTypeId: [0, Validators.required],
       isActive: [true, Validators.required]
     });
   }
   setform(item: any): void {
-    console.log(item);
     this.itemForm = this.fb.group({
-      id: [item.id, Validators.required],
+      itemId: [item.id, Validators.required],
       itemTypeId: [item.itemTypeId, Validators.required],
       itemName: [item.itemName, Validators.required],
       uom: [item.uom, Validators.required],
@@ -66,14 +67,13 @@ export class ItemTransactionComponent {
       unitPriceSell: [item.unitPriceSell, Validators.required],
       unitPricePurchase: [item.unitPricePurchase, Validators.required],
       stockQuantity: [item.stockQuantity, Validators.required],
-      quantity: [0, Validators.required],
-      transationType: [0, Validators.required],
+      unitOfAmount: [0, Validators.required],
+      transactionTypeId: [0, Validators.required],
       isActive: [item.isActive, Validators.required]
     });
   }
   onItemSelected(selectedItem: any) {
     const selectedValue = selectedItem.target.value;
-    console.log(selectedValue);
     this.setform(this.GetItemById(selectedValue));
   }
   GetItemById(id: number) {
@@ -87,13 +87,25 @@ export class ItemTransactionComponent {
   }
 
   onSubmit(): void {
-    const urlddl = "/Item/CreateItem";
-    const formData: item = this.itemForm.value;
+    const urlddl = "/Item/MakeTransaction";
+    let formData = this.itemForm.value;
+
     this.apiService.post(formData, urlddl).subscribe(res => {
-      this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
-      this.initializeForm();
+      if (res.statusCode === 200) {
+        this.openPopup(res.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
+        this.initializeForm();
+        this.itemSelect.nativeElement.selectedIndex = 0;
+      } else {
+        this.openPopup(res.message, "Ok", "https://uxwing.com/wp-content/themes/uxwing/download/signs-and-symbols/warning-icon.png");
+      }
+
     }, error => {
-      this.openPopup("Faild to Create", "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
+      console.log(error.error);
+      let e = "";
+      for (var key in error.error.errors) {
+        e += error.error.errors[key] + '\n';
+      }
+      this.openPopup(e, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
     });
   }
 

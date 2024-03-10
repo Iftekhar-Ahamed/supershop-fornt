@@ -70,7 +70,7 @@ export class HomeComponent {
     this.component = name;
   }
   getUserMenu() {
-    const url = "/User/GetMenuPermissionByUserId?UserId=" + this.dataservice.userInfo.id;
+    const url = "/Menu/GetMenuPermissionByUserId?UserId=" + this.dataservice.userInfo.id;
     this.apiService.get(url).subscribe(
       res => {
         this.menuItems = res.key;

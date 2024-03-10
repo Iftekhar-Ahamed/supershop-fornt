@@ -3,7 +3,7 @@
 
         <label for="itemId">Select Item</label>
 
-        <select (change)="onItemSelected($event)">
+        <select #itemSelect (change)="onItemSelected($event)">
             <option disabled selected value="">Select an Item</option>
             <option *ngFor="let type of itemDDL" [value]="type.value">
                 {{ type.name }}
@@ -29,15 +29,16 @@
         <label for="stockQuantity">Stock Quantity</label>
         <input type="text" id="stockQuantity" formControlName="stockQuantity" placeholder="" readonly>
 
-        <label for="transactionType">Transaction Type</label>
-        <select id="transactionType" formControlName="transactionType" required>
+        <label for="transactionTypeId">Transaction Type</label>
+        <select id="transactionTypeId" formControlName="transactionTypeId" required>
             <option *ngFor="let type of transactionType" [value]="type.value">
                 {{ type.name }}
             </option>
         </select>
 
-        <label for="quantity">Quantity</label>
-        <input type="text" id="quantity" formControlName="quantity" placeholder="Enter Quantity">
+
+        <label for="unitOfAmount">Quantity</label>
+        <input type="text" id="unitOfAmount" formControlName="unitOfAmount" placeholder="Enter Quantity">
 
         <input type="submit" value="Submit">
     </div>
