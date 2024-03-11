@@ -93,8 +93,7 @@ export class CreateItemTransactionTypCofigComponent {
   }
 
   updateMenuPermission(index: number): void {
-    console.log("OK");
-    this.apiService.post(this.payload, "/User/UpdateItemTransactionType").pipe(
+    this.apiService.post(this.payload, "/Item/UpdateItemTransactionType").pipe(
       switchMap(() => this.getMenuPermissionById(index))
     ).subscribe(
       updatedData => {
@@ -143,7 +142,7 @@ export class CreateItemTransactionTypCofigComponent {
   }
   openPopupConfrimationForDelete(index: number): void {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
-      data: { "Do you want to delete": String, "https://cdn-icons-png.flaticon.com/512/574/574433.png": String },
+      data: { "Do you want to delete": String, "https://uxwing.com/wp-content/themes/uxwing/download/signs-and-symbols/warning-icon.png": String },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -154,7 +153,7 @@ export class CreateItemTransactionTypCofigComponent {
   }
   openPopupConfrimationForUpdate(index: number): void {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
-      data: { "Do you want to Update": String, "https://cdn-icons-png.flaticon.com/512/574/574433.png": String },
+      data: { "Do you want to Update": String, "https://uxwing.com/wp-content/themes/uxwing/download/signs-and-symbols/warning-icon.png": String },
     });
 
     dialogRef.afterClosed().subscribe(result => {

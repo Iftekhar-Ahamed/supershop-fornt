@@ -16,8 +16,9 @@ export class ConfirmationComponent {
 
     @Inject(MAT_DIALOG_DATA) public data: { message: string, imgsrc: string }
   ) {
+    this.imgsrc = data.imgsrc;
     this.message = data.message;
-    console.log(this.message);
+    console.log(data.imgsrc);
   }
   onNoClick(): void {
     this.dialogRef.close('no');

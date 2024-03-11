@@ -11,9 +11,11 @@ interface item {
   itemTypeId: number;
   itemName: string;
   unitPriceSell: number;
+  uom: string;
   unitPricePurchase: number;
   stockQuantity: number;
   isActive: boolean;
+  itemTypeName: string;
 }
 interface CommonDDL {
   value: number,
@@ -42,6 +44,8 @@ export class ItemConfigComponent {
     id: 0,
     itemTypeId: 0,
     itemName: '',
+    uom: '',
+    itemTypeName: '',
     unitPriceSell: 0,
     unitPricePurchase: 0,
     stockQuantity: 0,
@@ -117,6 +121,8 @@ export class ItemConfigComponent {
       itemTypeId: this.itemView[index].itemTypeId,
       itemName: this.itemView[index].itemName,
       unitPriceSell: this.itemView[index].unitPriceSell,
+      uom: this.itemView[index].uom,
+      itemTypeName: this.itemView[index].itemTypeName,
       unitPricePurchase: this.itemView[index].unitPricePurchase,
       stockQuantity: this.itemView[index].stockQuantity,
       isActive: this.itemView[index].isActive,
