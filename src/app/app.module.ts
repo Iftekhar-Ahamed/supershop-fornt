@@ -26,6 +26,7 @@ import { CreateItemTransactionTypeComponent } from './Component/create-item-tran
 import { CreateItemTransactionTypCofigComponent } from './Component/create-item-transaction-typ-cofig/create-item-transaction-typ-cofig.component';
 import { ItemTransactionComponent } from './Component/item-transaction/item-transaction.component';
 import { RealtimeClientService } from './realtime-client.service';
+import { LargePopUpComponent } from './Component/large-pop-up/large-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RealtimeClientService } from './realtime-client.service';
     PopupComponent,
     ConfirmationComponent,
     NotificationReceivedComponent,
+    LargePopUpComponent,
 
   ],
   imports: [

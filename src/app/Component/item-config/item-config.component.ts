@@ -6,6 +6,7 @@ import { APIService } from '../../api.service';
 import { Observable, map, catchError, switchMap } from 'rxjs';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { PopupComponent } from '../popup/popup.component';
+import { LargePopUpComponent } from '../large-pop-up/large-pop-up.component';
 interface item {
   id: number;
   itemTypeId: number;
@@ -164,6 +165,30 @@ export class ItemConfigComponent {
       }
     );
   }
+
+  viewHistory(index: number) {
+
+    const url = `/Log/GetItemLog?TableId=2002&ItemId=${this.itemView[index].id}`;
+
+    this.apiService.get(url).subscribe(
+      res => {
+        if (res.statusCode === 200) {
+          let r = '';
+          const data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            r += element + '\n';
+          }
+          this.openPopupLarge(r, "Close", "https://cdn-icons-png.flaticon.com/512/1960/1960242.png");
+        } else {
+          this.openPopup("NO LOG HISTORY", "Close", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
+        }
+      },
+      (error) => {
+        console.error('Error fetching todos:', error);
+      }
+    );
+  }
   getItemTypeNameById(id: number): string {
     const name = this.itemType.find(x => x.value === id)?.name ?? '';
     return name;
@@ -175,6 +200,15 @@ export class ItemConfigComponent {
   }
   openPopup(message: string, action: string, imgsource: string): void {
     const dialogRef = this.dialog.open(PopupComponent, {
+      data: { message, action, imgsource },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Popup closed');
+    });
+  }
+  openPopupLarge(message: string, action: string, imgsource: string): void {
+    const dialogRef = this.dialog.open(LargePopUpComponent, {
       data: { message, action, imgsource },
     });
 
