@@ -79,7 +79,7 @@ export class ItemTransactionComponent {
   GetItemById(id: number) {
     const url = `/Item/GetItemById?Id=${id}`;
     return this.apiService.get(url).subscribe(res => {
-      this.setform(res.key);
+      this.setform(res.data);
     },
       (error) => {
         console.error('Error fetching todos:', error);
@@ -102,8 +102,8 @@ export class ItemTransactionComponent {
     }, error => {
       console.log(error.error);
       let e = "";
-      for (var key in error.error.errors) {
-        e += error.error.errors[key] + '\n';
+      for (var data in error.error.errors) {
+        e += error.error.errors[data] + '\n';
       }
       this.openPopup(e, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
     });
@@ -114,7 +114,7 @@ export class ItemTransactionComponent {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemDDL = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.itemDDL.push(item);
         }
       },
@@ -128,7 +128,7 @@ export class ItemTransactionComponent {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.transactionType = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.transactionType.push(item);
         }
       },

@@ -47,7 +47,7 @@ export class CreateUserMenuPermissionComponent {
     }
     this.apiService.get(urlddl).subscribe(
       res => {
-        this.menus = res.key;
+        this.menus = res.data;
       },
       (error) => {
         console.error('Error fetching todos:', error);
@@ -62,7 +62,7 @@ export class CreateUserMenuPermissionComponent {
     const urlddl = "/User/GetUserDDL";
     this.apiService.get(urlddl).subscribe(
       res => {
-        this.users = res.key;
+        this.users = res.data;
       },
       (error) => {
         console.error('Error fetching todos:', error);

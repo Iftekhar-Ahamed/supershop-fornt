@@ -37,3 +37,25 @@ html {
     padding-left: 2%;
     padding-right: 2%;
 }
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(228, 206, 166);
+}
+
+.custom-button:hover {
+    background-color: #7fc783;
+}
+
+.custom-button.selected {
+    background-color: #1d8a22;
+}
+
+.custom-button {
+    margin-right: 10px;
+}
+
+.custom-button:last-child {
+    margin-right: 0;
+}

@@ -65,7 +65,7 @@ export class CreateUserComponent implements OnInit {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.userType = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.userType.push(item);
         }
       },

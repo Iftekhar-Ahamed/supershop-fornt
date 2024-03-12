@@ -59,7 +59,7 @@ export class MenuConfigurationComponent {
     this.apiService.get(url).subscribe(
       res => {
         this.menuView = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.menuView.push(item);
         }
       },
@@ -72,7 +72,7 @@ export class MenuConfigurationComponent {
     const url = `/Menu/GetMenuById?MenuId=${id}`;
     return this.apiService.get(url).pipe(
       map(res => {
-        return res.key;
+        return res.data;
       }),
       catchError(error => {
         console.error('Error fetching user by Id:', error);

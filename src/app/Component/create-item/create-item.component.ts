@@ -64,7 +64,7 @@ export class CreateItemComponent {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemType = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.itemType.push(item);
         }
       },

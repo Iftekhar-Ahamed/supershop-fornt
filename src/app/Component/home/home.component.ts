@@ -74,7 +74,7 @@ export class HomeComponent {
     const url = "/Menu/GetMenuPermissionByUserId?UserId=" + this.dataservice.userInfo.id;
     this.apiService.get(url).subscribe(
       res => {
-        this.menuItems = res.key;
+        this.menuItems = res.data;
       },
       (log) => {
 

@@ -57,7 +57,7 @@ export class ItemTypeConfigComponent {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
     this.apiService.get(url).subscribe(res => {
-      this.itemTypeView = res.key;
+      this.itemTypeView = res.data;
     }, (error) => {
       console.log(error);
     });
@@ -82,7 +82,7 @@ export class ItemTypeConfigComponent {
   getMenuPermissionById(index: number): Observable<ItemType> {
     const url = `/Item/GetItemTypeById?Id=${this.itemTypeView[index].id}`;
     return this.apiService.get(url).pipe(
-      map((res: any) => res.key as ItemType),
+      map((res: any) => res.data as ItemType),
       catchError(error => {
         console.error('Error fetching user by Id:', error);
         throw error;

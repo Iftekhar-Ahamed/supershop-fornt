@@ -31,10 +31,10 @@ export class LogInComponent {
     }
     this.apiService.logIn(apiUrl).subscribe(
       (res) => {
-        //console.log(res.key);
+        //console.log(res.data);
         if (res.value.statusCode === 200) {
           this.router.navigate(['/home']);
-          this.data.userInfo = res.key;
+          this.data.userInfo = res.data;
           const tokenString = res.value.token;
           const tokenArray = tokenString.split(' ');
           this.data.userInfo.userAccessToken = tokenArray[0];

@@ -60,7 +60,7 @@ export class MenuPermissionConfigComponent {
       url += `?SearchTerm=${this.datafilter.searchTerm}`;
     }
     this.apiService.get(url).subscribe(res => {
-      this.menuPermissionView = res.key;
+      this.menuPermissionView = res.data;
     }, (error) => {
       console.log(error);
     });
@@ -85,7 +85,7 @@ export class MenuPermissionConfigComponent {
   getMenuPermissionById(index: number): Observable<menuPermission> {
     const url = `/Menu/GetMenuPermissionById?MenuPermissionId=${this.menuPermissionView[index].id}`;
     return this.apiService.get(url).pipe(
-      map((res: any) => res.key as menuPermission),
+      map((res: any) => res.data as menuPermission),
       catchError(error => {
         console.error('Error fetching user by Id:', error);
         throw error;

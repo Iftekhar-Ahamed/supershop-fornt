@@ -1,10 +1,17 @@
 <mat-drawer-container class="home-container" autosize>
     <mat-drawer #drawer class="home-sidenav" mode="side">
         <mat-nav-list>
-            <ng-container *ngFor="let menuItem of menuItems">
-                <!-- <a mat-list-item routerLink="{{ menuItem.menuUrl }}">{{ menuItem.menuName }}</a> -->
+            <!-- <ng-container *ngFor="let menuItem of menuItems">
                 <a mat-list-item (click)="openComponent(menuItem.menuUrl)">{{ menuItem.menuName }}</a>
-            </ng-container>
+            </ng-container> -->
+            <div class="button-container">
+                <ng-container *ngFor="let menuItem of menuItems">
+                    <button mat-button class="custom-button" (click)="openComponent(menuItem.menuUrl)"
+                        [class.selected]="component === menuItem.menuUrl">
+                        {{ menuItem.menuName }}
+                    </button>
+                </ng-container>
+            </div>
         </mat-nav-list>
     </mat-drawer>
 

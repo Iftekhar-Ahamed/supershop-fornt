@@ -58,7 +58,7 @@ export class CreateItemTransactionTypCofigComponent {
     }
     this.apiService.get(url).subscribe(res => {
 
-      this.transactionTypeView = res.key;
+      this.transactionTypeView = res.data;
       console.log(this.transactionTypeView);
     }, (error) => {
       console.log(error);
@@ -84,7 +84,7 @@ export class CreateItemTransactionTypCofigComponent {
   getMenuPermissionById(index: number): Observable<transactionType> {
     const url = `/Item/GetItemTransactionTypeById?Id=${this.transactionTypeView[index].id}`;
     return this.apiService.get(url).pipe(
-      map((res: any) => res.key as transactionType),
+      map((res: any) => res.data as transactionType),
       catchError(error => {
         console.error('Error fetching user by Id:', error);
         throw error;

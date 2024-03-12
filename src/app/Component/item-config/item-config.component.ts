@@ -67,7 +67,7 @@ export class ItemConfigComponent {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.itemType = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.itemType.push(item);
         }
       },
@@ -86,7 +86,7 @@ export class ItemConfigComponent {
     this.apiService.get(url).subscribe(
       res => {
         this.itemView = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.itemView.push(item);
         }
       },
@@ -99,7 +99,7 @@ export class ItemConfigComponent {
     const url = `/Item/GetItemById?Id=${id}`;
     return this.apiService.get(url).pipe(
       map(res => {
-        return res.key as item;
+        return res.data as item;
       }),
       catchError(error => {
         console.error('Error fetching Item by Id:', error);

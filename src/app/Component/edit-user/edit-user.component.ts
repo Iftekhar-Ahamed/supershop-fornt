@@ -75,7 +75,7 @@ export class EditUserComponent {
     this.apiService.get(urlddl).subscribe(
       res => {
         this.userType = [];
-        for (const item of res.key) {
+        for (const item of res.data) {
           this.userType.push(item);
         }
       },
@@ -93,7 +93,7 @@ export class EditUserComponent {
     this.apiService.get(url).subscribe(
       res => {
         this.userView = [];
-        for (const item of res.key.data) {
+        for (const item of res.data.data) {
           var ddl: CommonDDL = {
             value: item.userTypeId,
             name: item.userTypeName
@@ -123,17 +123,17 @@ export class EditUserComponent {
       map(res => {
 
         const ddl: CommonDDL = {
-          value: res.key.userTypeId,
-          name: res.key.userTypeName
+          value: res.data.userTypeId,
+          name: res.data.userTypeName
         };
         const newUser: User = {
-          id: res.key.id,
-          userName: res.key.userName,
+          id: res.data.id,
+          userName: res.data.userName,
           userType: ddl,
-          userFullName: res.key.userFullName,
-          connectionId: res.key.connectionId,
-          isActive: res.key.isActive,
-          password: res.key.password
+          userFullName: res.data.userFullName,
+          connectionId: res.data.connectionId,
+          isActive: res.data.isActive,
+          password: res.data.password
         };
         console.log(newUser);
         return newUser;
