@@ -7,6 +7,8 @@ import { promises } from 'node:dns';
 import { Observable, catchError, map, switchMap } from 'rxjs';
 import { PopupComponent } from '../popup/popup.component';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { HomeComponent } from '../home/home.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 interface UserPayLoad {
   userTypeName: string;
   id: number;
@@ -29,6 +31,9 @@ interface User {
 interface filterData {
   searchTerm?: string | null,
   isActive?: boolean | null,
+  pageSize: number,
+  pageNo: number,
+  total: number
 }
 interface CommonDDL {
   value: number,
@@ -39,13 +44,14 @@ interface CommonDDL {
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, MatPaginatorModule]
 })
 
 export class EditUserComponent {
   userView: Array<User> = [];
   editIndex: number = -1;
   userType: CommonDDL[] = [];
+
 
   payload: UserPayLoad = {
     userFullName: "",
@@ -62,13 +68,18 @@ export class EditUserComponent {
 
   datafilter: filterData = {
     searchTerm: null,
-    isActive: null
+    isActive: null,
+    pageNo: 0,
+    pageSize: 5,
+    total: 0,
+
   }
-  constructor(private apiService: APIService, private dialog: MatDialog) { }
+  constructor(private apiService: APIService, private dialog: MatDialog, private h: HomeComponent) { }
 
   ngOnInit(): void {
     this.getAllUser();
     this.getUserType();
+    this.h.paginationView = true;
   }
   getUserType() {
     const urlddl = "/User/GetUserType";
@@ -84,12 +95,17 @@ export class EditUserComponent {
       }
     );
   }
-
+  onPageChanged(event: any) {
+    this.datafilter.pageNo = event.pageIndex;
+    this.datafilter.pageSize = event.pageSize;
+    this.getAllUser();
+  }
 
   getAllUser() {
-    const url = "/User/GeAllUser?" + (this.datafilter.isActive != null ? "IsActive=" + this.datafilter.isActive : "") +
-      (this.datafilter.searchTerm != null ? "SearchTerm=" + this.datafilter.searchTerm : "");
-
+    const url = "/User/GeAllUser?" + (this.datafilter.isActive != null ? "IsActive=" + this.datafilter.isActive + "&" : "") +
+      (this.datafilter.searchTerm != null ? "SearchTerm=" + this.datafilter.searchTerm + "&" : "") +
+      ("PageSize=" + this.datafilter.pageSize) + "&" +
+      ("PageNo=" + this.datafilter.pageNo);
     this.apiService.get(url).subscribe(
       res => {
         this.userView = [];
@@ -109,7 +125,7 @@ export class EditUserComponent {
           };
           this.userView.push(newUser);
         }
-
+        this.datafilter.total = res.data.total;
 
       },
       (error) => {
@@ -235,4 +251,5 @@ export class EditUserComponent {
       }
     });
   }
+
 }

@@ -57,7 +57,8 @@ interface menuItem {
 export class HomeComponent {
   menuItems: menuItem[] = [];
   showFiller = false;
-  component: string = "";
+  component: string = "Home";
+  paginationView: boolean = false;
 
   constructor(private notify: RealtimeClientService, private apiService: APIService, private dataservice: UserDataService, private dialog: MatDialog, private router: Router) { }
 

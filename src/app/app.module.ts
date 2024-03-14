@@ -36,6 +36,7 @@ import { LargePopUpComponent } from './Component/large-pop-up/large-pop-up.compo
     NotificationReceivedComponent,
     LargePopUpComponent,
 
+
   ],
   imports: [
     RouterModule.forRoot([]),

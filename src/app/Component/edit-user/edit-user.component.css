@@ -60,11 +60,13 @@
 
 }
 
+
 .filter-boxes-container {
     display: flex;
     margin-bottom: 20px;
     width: 205%;
 }
+
 
 .search-box {
     margin-top: 20px;

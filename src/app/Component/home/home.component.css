@@ -7,36 +7,41 @@ html {
 }
 
 .home-container {
-    display: flex;
-    width: 100%;
+    max-width: 100%;
     height: 100%;
-    border: 1px solid rgba(160, 216, 226, 0.5);
+    width: 100%;
+    display: block !important;
+    border: 3px solid rgba(19, 58, 143, 0.5);
 }
+
 
 .home-sidenav-content {
     display: flex;
-    width: 100%;
     flex-direction: column;
-    height: 100%;
-
+    margin: 10px;
 }
+
 
 .home-header-content {
     display: flex;
-    width: 1868px;
     align-items: flex-start;
     border: 5px solid rgba(226, 160, 160, 0.5);
     padding: 0 20px;
 }
 
-.menu-button {
-    margin-right: auto;
+.home-footer-content {
+    display: flex;
+    /* width: 1868px; */
+    align-items: flex-start;
+    padding: 0 20px;
 }
 
-.component-content {
-    padding-left: 2%;
-    padding-right: 2%;
+.menu-button {
+    margin-right: auto;
+    width: 100%;
 }
+
+.component-content {}
 
 .button-container {
     display: flex;
@@ -58,4 +63,15 @@ html {
 
 .custom-button:last-child {
     margin-right: 0;
+}
+
+.banner {
+    height: 100%;
+    max-width: 100%;
+    border: 5px solid black;
+}
+
+.image-content {
+    height: 100%;
+    width: 100%;
 }

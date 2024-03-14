@@ -1,20 +1,22 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div class="user-form">
-        <label for="userName">Username</label>
-        <input type="text" id="userName" formControlName="userName" placeholder="Your username.." required>
+<div class="user-form">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="user-form">
+            <label for="userName">Username</label>
+            <input type="text" id="userName" formControlName="userName" placeholder="Your username.." required>
 
-        <label for="userFullName">Full Name</label>
-        <input type="text" id="userFullName" formControlName="userFullName" placeholder="Your full name.." required>
+            <label for="userFullName">Full Name</label>
+            <input type="text" id="userFullName" formControlName="userFullName" placeholder="Your full name.." required>
 
-        <label for="userType">User Type</label>
-        <select id="userType" formControlName="userTypeId" required>
-            <option *ngFor="let type of userType" [value]="type.value">
-                {{ type.name }}
-            </option>
-        </select>
-        <label for="subject">Password</label>
-        <input type="text" id="password" formControlName="password" placeholder="Your password.." required>
+            <label for="userType">User Type</label>
+            <select id="userType" formControlName="userTypeId" required>
+                <option *ngFor="let type of userType" [value]="type.value">
+                    {{ type.name }}
+                </option>
+            </select>
+            <label for="subject">Password</label>
+            <input type="text" id="password" formControlName="password" placeholder="Your password.." required>
 
-        <input type="submit" value="Submit">
-    </div>
-</form>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>

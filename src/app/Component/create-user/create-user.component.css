@@ -1,17 +1,32 @@
+/* Apply styles to text inputs, select elements, and textareas */
 input[type=text],
-select,
+/* select,
 textarea {
-    width: 100%;
+    width: calc(100% - 24px);
     padding: 12px;
+   
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
-    padding-left: 3px;
+} */
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    /* Padding on all sides */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
 }
 
+
+/* Apply styles to submit button */
 input[type=submit] {
     background-color: #04AA6D;
     color: white;
@@ -19,22 +34,23 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    padding-left: 5px;
-
+    width: 100%;
 }
 
+/* Hover styles for submit button */
 input[type=submit]:hover {
     background-color: #45a049;
 }
 
-.container {
-    border-radius: 5px;
-    background-color: #252020;
-    padding: 20px;
-}
-
+/* Styles for the form container */
 .user-form {
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 2%;
+    padding: 2%;
+    /* Adjusted padding */
+    width: 80%;
+    max-width: 600px;
+    /* Set a maximum width for better readability */
+    margin: 0 auto;
+    /* Center the form horizontally */
+    display: flex;
+    flex-direction: column;
 }

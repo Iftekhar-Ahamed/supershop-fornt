@@ -31,18 +31,17 @@ export class LogInComponent {
     }
     this.apiService.logIn(apiUrl).subscribe(
       (res) => {
-        //console.log(res.data);
-        if (res.value.statusCode === 200) {
+        if (res.statusCode as number === 200) {
           this.router.navigate(['/home']);
           this.data.userInfo = res.data;
-          const tokenString = res.value.token;
+          const tokenString = res.token;
           const tokenArray = tokenString.split(' ');
           this.data.userInfo.userAccessToken = tokenArray[0];
           this.data.userInfo.userRefreshToken = tokenArray[1];
           this.data.setData();
           this.openPopup(res.value.message, "Ok", "https://cdn-icons-png.flaticon.com/512/190/190411.png");
         } else {
-          this.openPopup(res.value.message, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
+          this.openPopup(res.message, "Try Again", "https://cdn-icons-png.flaticon.com/512/1047/1047711.png");
         }
       },
       (error) => {

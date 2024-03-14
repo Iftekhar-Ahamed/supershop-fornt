@@ -1,10 +1,12 @@
 <mat-drawer-container class="home-container" autosize>
     <mat-drawer #drawer class="home-sidenav" mode="side">
         <mat-nav-list>
-            <!-- <ng-container *ngFor="let menuItem of menuItems">
-                <a mat-list-item (click)="openComponent(menuItem.menuUrl)">{{ menuItem.menuName }}</a>
-            </ng-container> -->
+
             <div class="button-container">
+                <button mat-button class="custom-button" (click)="openComponent('Home')"
+                    [class.selected]="component === 'Home'">
+                    {{ 'Home' }}
+                </button>
                 <ng-container *ngFor="let menuItem of menuItems">
                     <button mat-button class="custom-button" (click)="openComponent(menuItem.menuUrl)"
                         [class.selected]="component === menuItem.menuUrl">
@@ -22,6 +24,9 @@
             </button>
         </div>
         <div class="component-content">
+            <!-- <div class="banner" *ngIf="component==='Home'">
+                <img class="image-content" src="../../../assets/SuperShop.jpg">
+            </div> -->
             <app-create-user *ngIf="component==='CreateUser'"></app-create-user>
             <app-edit-user *ngIf="component==='EditUser'"></app-edit-user>
             <app-create-menu *ngIf="component==='CreateMenu'"></app-create-menu>
