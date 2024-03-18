@@ -6,6 +6,7 @@ import { APIService } from '../../api.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { PopupComponent } from '../popup/popup.component';
 import { Observable, catchError, map, switchMap } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 interface menuPermission {
   id: number;
   menuId: number;
@@ -17,6 +18,9 @@ interface menuPermission {
 interface filterData {
   searchTerm?: string | null,
   isActive?: boolean | null,
+  pageSize: number,
+  pageNo: number,
+  total: number
 }
 
 @Component({
@@ -24,7 +28,7 @@ interface filterData {
   templateUrl: './menu-permission-config.component.html',
   styleUrl: './menu-permission-config.component.css',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule]
 })
 export class MenuPermissionConfigComponent {
 
@@ -45,7 +49,10 @@ export class MenuPermissionConfigComponent {
 
   datafilter: filterData = {
     searchTerm: null,
-    isActive: null
+    isActive: null,
+    pageNo: 0,
+    pageSize: 5,
+    total: 0,
   }
 
   constructor(private apiService: APIService, private dialog: MatDialog) { }
@@ -55,15 +62,23 @@ export class MenuPermissionConfigComponent {
   }
 
   getAllMenuPermission() {
-    let url = `/Menu/GetAllMenuPermission`;
-    if (this.datafilter.searchTerm) {
-      url += `?SearchTerm=${this.datafilter.searchTerm}`;
-    }
+    let url = `/Menu/GetAllMenuPermission?` + (this.datafilter.isActive != null ? "IsActive=" + this.datafilter.isActive + "&" : "") +
+      (this.datafilter.searchTerm != null ? "SearchTerm=" + this.datafilter.searchTerm + "&" : "") +
+      ("PageSize=" + this.datafilter.pageSize) + "&" +
+      ("PageNo=" + this.datafilter.pageNo);
+
     this.apiService.get(url).subscribe(res => {
-      this.menuPermissionView = res.data;
+      this.menuPermissionView = res.data.data;
+      this.datafilter.total = res.data.total;
+
     }, (error) => {
       console.log(error);
     });
+  }
+  onPageChanged(event: any) {
+    this.datafilter.pageNo = event.pageIndex;
+    this.datafilter.pageSize = event.pageSize;
+    this.getAllMenuPermission();
   }
 
   deleteMenuPermission(index: number) {
